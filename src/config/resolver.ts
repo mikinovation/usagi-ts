@@ -15,12 +15,10 @@ export function resolveConfigPaths(
 ): UsagiConfig {
   const resolvedConfig = { ...config };
   
-  // Resolve schema cache directory
   if (resolvedConfig.schema?.cacheDir) {
     resolvedConfig.schema.cacheDir = path.resolve(baseDir, resolvedConfig.schema.cacheDir);
   }
   
-  // Resolve types output directory
   if (resolvedConfig.types?.outputDir) {
     resolvedConfig.types.outputDir = path.resolve(baseDir, resolvedConfig.types.outputDir);
   }
@@ -41,18 +39,15 @@ export async function expandConfigGlobs(
 ): Promise<UsagiConfig> {
   const expandedConfig = { ...config };
   
-  // Expand filter patterns
   if (expandedConfig.schema?.filter && Array.isArray(expandedConfig.schema.filter)) {
     const patterns = expandedConfig.schema.filter;
     
-    // Expand glob patterns to actual file names
     const matchedFiles = await glob(patterns, {
       cwd: baseDir,
       onlyFiles: true,
       absolute: false
     });
     
-    // Replace filter with expanded file list
     expandedConfig.schema.filter = matchedFiles;
   }
   

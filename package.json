@@ -26,6 +26,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "ajv": "8.17.1",
     "chalk": "5.3.0"
   },
   "devDependencies": {},
