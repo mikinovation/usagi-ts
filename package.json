@@ -1,0 +1,35 @@
+{
+  "name": "usagi-ts",
+  "version": "0.0.1",
+  "description": "CLI tool for generating TypeScript types from CodeRabbit schema with eslint-style flat config",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "bin": {
+    "usagi-ts": "./bin/usagi-ts.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun",
+    "start": "bun run src/cli.ts",
+    "dev": "bun --watch src/cli.ts",
+    "test": "bun test",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "cli",
+    "typescript",
+    "schema",
+    "coderabbit",
+    "eslint-config",
+    "bun"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "5.3.0",
+  },
+  "devDependencies": {},
+  "engines": {
+    "bun": ">=1.0.0"
+  }
+}

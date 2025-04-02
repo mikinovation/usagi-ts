@@ -1,0 +1,16 @@
+[install]
+auto = true
+
+[test]
+coverage = true
+
+[debug]
+enabled = true
+
+[build]
+entry = ["./src/index.ts"]
+outdir = "./dist"
+target = "bun"
+format = "esm"
+minify = true
+splitting = false
