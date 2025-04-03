@@ -1,0 +1,75 @@
+/**
+ * @file usagi.config.js
+ * 
+ * Configuration for usagi-ts.
+ * This is a flat config file similar to eslint's flat config.
+ * 
+ * @see https://github.com/yourusername/usagi-ts
+ */
+
+// You can define multiple configurations and export them as an array
+export default [
+  // Base configuration
+  {
+    schema: {
+      // Schema URL (defaults to CodeRabbit's schema)
+      url: 'https://storage.googleapis.com/coderabbit_public_assets/schema.v2.json',
+
+      // Directory to cache the schema
+      cacheDir: './.usagi-cache',
+
+      // Optional: Filter to include only specific definitions
+      // filter: ['SomeType', 'AnotherType']
+    },
+
+    types: {
+      // Output directory for generated types
+      outputDir: './types',
+
+      // Optional: Prefix for generated type names
+      // prefix: 'CR',
+
+      // Optional: Suffix for generated type names
+      // suffix: 'Type',
+
+      // Optional: Custom banner comment for generated files
+      // banner: '/**\n * Custom header\n * @generated\n */',
+
+      // Optional: Generate all types in a single file
+      // singleFile: false,
+
+      // Optional: Name of the single file (if singleFile is true)
+      // singleFileName: 'index.ts',
+
+      // Optional: File naming convention
+      fileNaming: 'kebab', // 'kebab', 'camel', 'pascal', or 'snake'
+
+      // Optional: Format with prettier
+      prettier: true
+    },
+
+    // Optional: Hooks for custom logic
+    hooks: {
+      // beforeGenerate: async () => {
+      //   console.log('Before generation');
+      // },
+      // afterGenerate: async (result) => {
+      //   console.log(`Generated ${result.fileCount} files`);
+      // }
+    }
+  },
+
+  // You can add more configurations that will be merged with the base configuration
+  // {
+  //   // Override specific options
+  //   types: {
+  //     prefix: 'Custom'
+  //   }
+  // }
+];
+
+// Alternatively, you can export a single configuration object
+// export default {
+//   schema: { ... },
+//   types: { ... }
+// };
