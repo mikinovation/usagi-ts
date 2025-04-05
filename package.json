@@ -29,7 +29,10 @@
     "ajv": "8.17.1",
     "chalk": "5.4.1",
     "commander": "13.1.0",
-    "ora": "^8.2.0"
+    "fast-glob": "3.3.3",
+    "json-schema-to-typescript": "15.0.4",
+    "ora": "8.2.0",
+    "prettier": "3.5.3"
   },
   "devDependencies": {},
   "engines": {
