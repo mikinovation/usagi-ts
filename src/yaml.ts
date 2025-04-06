@@ -1,7 +1,7 @@
 import { dump } from 'js-yaml';
 import { CodeRabbitConfig } from './types';
 import { resolveConfig, UsagiConfigItem } from './define-config';
-import { deepMerge } from './utils';
+import defu from 'defu';
 
 export function generateYaml(configs: UsagiConfigItem[], env = process.env) {
   const resolvedConfigs = resolveConfig(configs, env);
@@ -13,6 +13,6 @@ export function generateYaml(configs: UsagiConfigItem[], env = process.env) {
 
 function mergeConfigs(configs: Partial<CodeRabbitConfig>[]) {
   return configs.reduce((result, config) => {
-    return deepMerge(result, config);
+    return defu(result, config);
   }, {} as CodeRabbitConfig);
 }
