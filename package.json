@@ -24,9 +24,10 @@
     "build:cli": "bun build ./src/cli.ts --outdir ./dist --target node",
     "generate-types": "bun run scripts/generate-types.ts",
     "prepublishOnly": "bun run generate-types && bun run build && bun run build:cli",
-    "test": "bun test",
+    "test": "bun test"
   },
   "dependencies": {
+    "defu": "^6.1.4",
     "js-yaml": "4.1.0"
   },
   "devDependencies": {
