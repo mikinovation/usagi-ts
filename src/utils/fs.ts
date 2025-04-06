@@ -3,7 +3,6 @@ import {
   rm, copyFile, cp, stat 
 } from 'node:fs/promises';
 import path from 'node:path';
-import { logger } from './logger.js';
 
 /**
  * Check if a file or directory exists
@@ -31,7 +30,6 @@ export async function ensureDir(dirPath: string): Promise<boolean> {
     await mkdir(dirPath, { recursive: true });
     return true;
   } catch (error) {
-    logger.error('Error creating directory:', error);
     return false;
   }
 }
@@ -47,7 +45,6 @@ export async function readJsonFile<T = any>(filePath: string): Promise<T | null>
     const fileContent = await readFile(filePath, 'utf8');
     return JSON.parse(fileContent) as T;
   } catch (error) {
-    logger.error('Error reading JSON file:', error);
     return null;
   }
 }
@@ -75,7 +72,6 @@ export async function writeJsonFile(
     
     return true;
   } catch (error) {
-    logger.error('Error writing JSON file:', error);
     return false;
   }
 }
@@ -91,7 +87,6 @@ export async function remove(filePath: string): Promise<boolean> {
     await rm(filePath, { recursive: true, force: true });
     return true;
   } catch (error) {
-    logger.error('Error deleting file or directory:', error);
     return false;
   }
 }
@@ -117,7 +112,6 @@ export async function copy(source: string, destination: string): Promise<boolean
     
     return true;
   } catch (error) {
-    logger.error('Error copying file or directory:', error);
     return false;
   }
 }
