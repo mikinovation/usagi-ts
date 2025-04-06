@@ -26,12 +26,12 @@
     "prepublishOnly": "bun run generate-types && bun run build && bun run build:cli"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "js-yaml": "4.1.0"
   },
   "devDependencies": {
     "@types/js-yaml": "4.0.5",
     "@types/bun": "1.2.8",
     "json-schema-to-typescript": "11.0.2",
-    "typescript": "5.0.0"
+    "typescript": "5.8.2"
   }
 }
