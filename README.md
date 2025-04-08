@@ -1,160 +1,235 @@
 # usagi-ts
 
-A CLI tool built with Bun for generating TypeScript types from CodeRabbit schema with flat config support.
+A TypeScript utility for managing CodeRabbit configuration files with flat config support.
+
+[![CI](https://github.com/yourusername/usagi-ts/actions/workflows/ci.yml/badge.svg)](https://github.com/yourusername/usagi-ts/actions/workflows/ci.yml)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
 
-- Generate TypeScript types from CodeRabbit schema
+- Define CodeRabbit configurations using TypeScript
 - Support for ESLint-style flat configuration
-- Customizable type generation options
-- Filter specific types from the schema
-- Format output with Prettier
-- Extensible hooks system
+- Environment-aware configuration
+- Type-safe configuration with auto-generated TypeScript types
+- Generate YAML output compatible with CodeRabbit
+- Extensible configuration approach
 
 ## Installation
 
-<!-- TODO: How to install -->
+```bash
+# Using npm
+npm install -D usagi-ts
+
+# Using yarn
+yarn add -D usagi-ts
+
+# Using bun
+bun add -D usagi-ts
+```
 
 ## Quick Start
 
-Initialize a new configuration in your project:
+Create a `usagi.config.ts` file in your project root:
 
-```bash
-usagi-ts init
-```
+```typescript
+import { defineUsagiConfig } from 'usagi-ts';
 
-This will create a `usagi.config.js` file in your project root.
-
-Generate types from the schema:
-
-```bash
-usagi-ts generate
-```
-
-## Configuration
-
-usagi-ts uses a flat configuration system similar to ESLint's flat config. You can define your configuration in a `usagi.config.js` file:
-
-```javascript
-export default [
+export default defineUsagiConfig([
   // Base configuration
   {
-    schema: {
-      url: 'https://storage.googleapis.com/coderabbit_public_assets/schema.v2.json',
-      cacheDir: './.usagi-cache',
+    language: 'en-US',
+    reviews: {
+      profile: 'chill',
+      auto_review: {
+        enabled: true,
+      },
     },
-    types: {
-      outputDir: './types',
-      fileNaming: 'kebab',
-      prettier: true
-    }
   },
-  // Additional configurations can be added to override or extend the base
-  {
-    types: {
-      prefix: 'CR'
-    }
-  }
-];
+  // Environment-specific configuration
+  (env) => ({
+    early_access: env.NODE_ENV === 'development',
+  }),
+]);
 ```
+
+Generate the CodeRabbit YAML configuration:
+
+```bash
+usagi
+```
+
+This will create a `.coderabbit.yml` file in your project root.
 
 ## Configuration Options
 
-### Schema Options
+The `usagi.config.ts` file exports an array of configuration objects or functions that return configuration objects. The configurations are merged using the `defu` library, with earlier configurations taking precedence over later ones.
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `url` | `string` | URL or file path to the schema |
-| `cacheDir` | `string` | Directory to cache the schema |
-| `filter` | `string[]` | List of type names to include |
+### Basic Configuration
 
-### Type Generation Options
+```typescript
+import { defineUsagiConfig } from 'usagi-ts';
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `outputDir` | `string` | Output directory for generated types |
-| `prefix` | `string` | Prefix for generated type names |
-| `suffix` | `string` | Suffix for generated type names |
-| `banner` | `string` | Custom banner comment for generated files |
-| `singleFile` | `boolean` | Generate all types in a single file |
-| `singleFileName` | `string` | Name of the single file |
-| `fileNaming` | `'kebab' \| 'camel' \| 'pascal' \| 'snake'` | File naming convention |
-| `prettier` | `boolean` | Format with prettier |
-
-### Hooks
-
-| Hook | Description |
-|------|-------------|
-| `beforeGenerate` | Called before type generation |
-| `afterGenerate` | Called after type generation with the result |
-
-## CLI Commands
-
-### Initialize
-
-```bash
-usagi-ts init [options]
+export default defineUsagiConfig([
+  {
+    language: 'en-US',
+    tone_instructions: 'Be friendly and helpful',
+    reviews: {
+      profile: 'chill',
+      auto_review: {
+        enabled: true,
+        drafts: false,
+      },
+    },
+  },
+]);
 ```
 
-Options:
-- `-d, --dir <directory>`: Directory to initialize in (default: ".")
+### Environment-Aware Configuration
+
+You can use functions to create environment-aware configurations:
+
+```typescript
+import { defineUsagiConfig } from 'usagi-ts';
+
+export default defineUsagiConfig([
+  // Base configuration
+  {
+    language: 'en-US',
+    reviews: {
+      profile: 'chill',
+    },
+  },
+  // Production configuration
+  (env) => env.NODE_ENV === 'production' ? {
+    reviews: {
+      auto_review: {
+        enabled: true,
+        drafts: false,
+      },
+    },
+  } : {},
+  // Development configuration
+  (env) => env.NODE_ENV === 'development' ? {
+    early_access: true,
+    reviews: {
+      auto_review: {
+        enabled: true,
+        drafts: true,
+      },
+    },
+  } : {},
+]);
+```
+
+### Using Presets
+
+The library includes some presets you can use as a starting point:
+
+```typescript
+import { defineUsagiConfig } from 'usagi-ts';
+import { presets } from 'usagi-ts/presets';
+
+export default defineUsagiConfig([
+  // Use the basic preset
+  presets.basic,
+  // Override specific options
+  {
+    language: 'en-GB',
+  },
+]);
+```
+
+## Available Presets
+
+### Basic
+
+```typescript
+{
+  version: 2,
+  reviews: {
+    auto_review: {
+      enabled: true,
+    },
+  },
+}
+```
+
+### Strict
+
+```typescript
+{
+  version: 2,
+  reviews: {
+    auto_review: {
+      enabled: true,
+      approve_threshold: 90,
+    },
+    rules: [
+      {
+        name: "Require tests",
+        pattern: "**/*.test.{js,ts}",
+        condition: "required",
+      },
+    ],
+  },
+}
+```
+
+## CLI Commands
 
 ### Generate
 
 ```bash
-usagi-ts generate [options]
+usagi
 ```
 
-Options:
-- `-s, --schema <url>`: Schema URL (default: CodeRabbit schema URL)
-- `-o, --output <directory>`: Output directory for generated types (default: "./types")
-- `-c, --config <path>`: Path to config file (default: "./usagi.config.js")
-- `-f, --force`: Force overwrite existing files
-
-### Validate
-
-```bash
-usagi-ts validate [options]
-```
-
-Options:
-- `-c, --config <path>`: Path to config file (default: "./usagi.config.js")
-- `-s, --schema <url>`: Schema URL (default: CodeRabbit schema URL)
+Generates a `.coderabbit.yml` file in the current directory based on the `usagi.config.ts` file.
 
 ## Programmatic Usage
 
-You can also use usagi-ts programmatically in your Node.js applications:
+You can also use usagi-ts programmatically in your applications:
 
 ```typescript
-import { 
-  fetchSchema, 
-  parseSchema, 
-  generateTypes, 
-  loadConfig 
-} from 'usagi-ts';
+import { generateYaml, defineUsagiConfig } from 'usagi-ts';
 
-async function generateTypesFromSchema() {
-  // Load configuration
-  const config = await loadConfig('./usagi.config.js');
-  
-  // Fetch schema
-  const schema = await fetchSchema(config.schema.url);
-  
-  // Parse schema
-  const parsedSchema = parseSchema(schema);
-  
-  // Generate types
-  const result = await generateTypes(parsedSchema, {
-    outputPath: config.types.outputDir,
-    ...config.types
-  });
-  
-  console.log(`Generated ${result.fileCount} files`);
-}
+const configs = defineUsagiConfig([
+  {
+    language: 'en-US',
+    reviews: {
+      profile: 'chill',
+    },
+  },
+]);
 
-generateTypesFromSchema();
+const yaml = generateYaml(configs);
+console.log(yaml);
+```
+
+## Development
+
+To develop usagi-ts locally:
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/usagi-ts.git
+cd usagi-ts
+
+# Install dependencies
+bun install
+
+# Run in development mode with watch
+bun dev
+
+# Build the project
+bun run build
+
+# Test the CLI
+bun run start
+
+# Run tests
+bun test
 ```
 
 ## License
 
-MIT
+[MIT License](LICENSE) © 2025 Mikihiro Saito
