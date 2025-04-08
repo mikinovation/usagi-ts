@@ -569,6 +569,15 @@ export interface CodeRabbitConfig {
          */
         enabled?: boolean;
       };
+      /**
+       * OXC is a JavaScript/TypeScript linter written in Rust.
+       */
+      oxc?: {
+        /**
+         * Enable OXC | OXC is a JavaScript/TypeScript linter written in Rust. | v0.16.5
+         */
+        enabled?: boolean;
+      };
     };
   };
   chat?: {
