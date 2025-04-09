@@ -22,7 +22,7 @@ jobs:
         run: bun install
 
       - name: Publish Package
-        run: npm publish --provenance --access public
+        run: bun publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
