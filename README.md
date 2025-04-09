@@ -2,9 +2,6 @@
 
 A TypeScript utility for managing CodeRabbit configuration files with flat config support.
 
-[![CI](https://github.com/yourusername/usagi-ts/actions/workflows/ci.yml/badge.svg)](https://github.com/mikinovation/usagi-ts/actions/workflows/ci.yml)
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
 ## Features
 
 - Define CodeRabbit configurations using TypeScript

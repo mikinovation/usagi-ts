@@ -1,0 +1,6 @@
+early_access: false
+language: en-US
+reviews:
+  profile: chill
+  auto_review:
+    enabled: true
