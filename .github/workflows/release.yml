@@ -3,6 +3,11 @@ name: Release
 on:
   release:
     types: [published]
+  workflow_call:
+    secrets:
+      NPM_TOKEN:
+        description: 'A token passed to NPM'
+        required: true
 
 jobs:
   build:

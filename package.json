@@ -1,6 +1,6 @@
 {
   "name": "usagi-ts",
-  "version": "1.0.0-preview-3",
+  "version": "1.0.0-preview-4",
   "description": "TypeScript library for managing CodeRabbit configuration files",
   "type": "module",
   "main": "./dist/index.js",
