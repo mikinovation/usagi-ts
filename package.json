@@ -1,5 +1,6 @@
 {
   "name": "usagi-ts",
+  "version": "1.0.2",
   "private": false,
   "workspaces": ["packages/*"],
   "scripts": {

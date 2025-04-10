@@ -1,6 +1,5 @@
 {
   "name": "@usagi-ts/core",
-  "version": "1.0.1",
   "description": "Core functionality for usagi-ts - TypeScript library for managing CodeRabbit configuration",
   "type": "module",
   "main": "./dist/index.js",
