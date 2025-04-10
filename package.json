@@ -3,7 +3,7 @@
   "private": false,
   "workspaces": ["packages/*"],
   "scripts": {
-    "build": "bun run --filter '*' build",
+    "build": "bun run build:core && bun run build:cli",
     "build:core": "bun run --filter '@usagi-ts/core' build",
     "build:cli": "bun run --filter '@usagi-ts/cli' build",
     "test": "bun run --filter '*' test",
