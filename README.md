@@ -5,11 +5,11 @@ A TypeScript utility for managing CodeRabbit configuration files with flat confi
 ## Features
 
 - Define CodeRabbit configurations using TypeScript
-- Support for ESLint-style flat configuration
+- Support for flat configuration system
 - Environment-aware configuration
 - Type-safe configuration with auto-generated TypeScript types
 - Generate YAML output compatible with CodeRabbit
-- Extensible configuration approach
+- Function-based review instructions for dynamic content generation
 
 ## Installation
 
@@ -57,82 +57,174 @@ usagi
 
 This will create a `.coderabbit.yml` file in your project root.
 
-## Configuration Options
+## Flat Configuration System
 
-The `usagi.config.ts` file exports an array of configuration objects or functions that return configuration objects. The configurations are merged using the `defu` library, with earlier configurations taking precedence over later ones.
+usagi-ts supports a flat configuration system that allows you to directly import and use configuration modules.
 
-### Basic Configuration
+### Key Benefits
+
+- **Direct Module Imports**: Import configuration modules directly using standard JavaScript imports
+- **Composable Configurations**: Easy to compose configurations from multiple sources
+- **Better TypeScript Support**: Full type checking for imported configuration modules
+- **Simplified Inheritance**: No need for string-based references to external packages
+
+### Basic Usage
 
 ```typescript
 import { defineUsagiConfig } from 'usagi-ts';
 
+// Import shared configuration modules directly
+import baseConfig from './configs/base-config';
+import jsConfig from '@my-org/usagi-js-config';
+
 export default defineUsagiConfig([
+  // Configurations are merged in order (earlier configs have higher precedence)
+  baseConfig,   // Base organization configuration
+  jsConfig,     // JavaScript-specific configuration
+  
+  // Inline configuration objects
   {
-    language: 'en-US',
-    tone_instructions: 'Be friendly and helpful',
     reviews: {
-      profile: 'chill',
+      profile: 'assertive', // Override settings from imported configs
       auto_review: {
-        enabled: true,
-        drafts: false,
-      },
-    },
-  },
+        drafts: true
+      }
+    }
+  }
 ]);
 ```
 
-### Environment-Aware Configuration
+### Sharing Configuration Modules
+
+You can create reusable configuration modules in your project or as separate packages:
+
+```typescript
+// configs/base-config.ts
+import { UsagiExtendedConfig } from 'usagi-ts';
+
+/**
+ * Base organization configuration
+ * @type {UsagiExtendedConfig}
+ */
+const baseConfig: UsagiExtendedConfig = {
+  language: 'en-US',
+  reviews: {
+    profile: 'chill',
+    auto_review: {
+      enabled: true,
+    },
+  },
+  
+  // Shared instruction sets
+  instruction_sets: {
+    javascript: {
+      description: 'Standard JavaScript review instructions',
+      instructions: `
+        Review JavaScript code against these standards:
+        1. Follow Google Style Guide
+        2. {{customRules}}
+      `
+    }
+  }
+};
+
+export default baseConfig;
+```
+
+### Function Configurations
 
 You can use functions to create environment-aware configurations:
 
 ```typescript
 import { defineUsagiConfig } from 'usagi-ts';
+import baseConfig from './configs/base-config';
+
+/**
+ * Environment-aware configuration
+ * @param {Record<string, string>} env - Environment variables
+ * @returns {UsagiExtendedConfig} Configuration based on environment
+ */
+const envConfig = (env: Record<string, string>) => ({
+  early_access: env.NODE_ENV === 'development',
+});
 
 export default defineUsagiConfig([
-  // Base configuration
-  {
-    language: 'en-US',
-    reviews: {
-      profile: 'chill',
-    },
-  },
-  // Production configuration
-  (env) => env.NODE_ENV === 'production' ? {
-    reviews: {
-      auto_review: {
-        enabled: true,
-        drafts: false,
-      },
-    },
-  } : {},
-  // Development configuration
-  (env) => env.NODE_ENV === 'development' ? {
-    early_access: true,
-    reviews: {
-      auto_review: {
-        enabled: true,
-        drafts: true,
-      },
-    },
-  } : {},
+  baseConfig,
+  envConfig, // This will be evaluated with the current environment
 ]);
 ```
 
-### Using Presets
+### Nested Configurations
 
-The library includes some presets you can use as a starting point:
+Configurations can include nested arrays, which will be flattened automatically:
 
 ```typescript
 import { defineUsagiConfig } from 'usagi-ts';
-import { presets } from 'usagi-ts/presets';
+import baseConfig from './configs/base-config';
+import { jsConfigs } from './configs/js-configs';
 
 export default defineUsagiConfig([
-  // Use the basic preset
-  presets.basic,
-  // Override specific options
+  baseConfig,
+  jsConfigs, // This can be an array of configurations
   {
-    language: 'en-GB',
-  },
+    // Project-specific overrides
+    reviews: {
+      profile: 'assertive',
+    }
+  }
+]);
+```
+
+### Order of Precedence
+
+Configurations are merged in the order they appear in the array, with later entries taking precedence over earlier ones.
+
+```typescript
+import { defineUsagiConfig } from 'usagi-ts';
+
+export default defineUsagiConfig([
+  // Lower precedence
+  { reviews: { profile: 'chill' } },
+  
+  // Higher precedence (will override the above)
+  { reviews: { profile: 'assertive' } }
+]);
+
+// Result: { reviews: { profile: 'assertive' } }
+```
+
+## Function-Based Review Instructions
+
+usagi-ts supports powerful function-based review instructions that allow you to dynamically generate review instructions based on parameters:
+
+```typescript
+import { defineUsagiConfig } from 'usagi-ts';
+import baseConfig from './configs/base-config';
+import { createJavaScriptInstructions } from './configs/instruction-functions';
+
+export default defineUsagiConfig([
+  baseConfig,
+  {
+    instruction_sets: {
+      // Add function-based instruction
+      javascript: {
+        description: 'JavaScript review instructions',
+        instructions: createJavaScriptInstructions
+      }
+    },
+    enhanced_path_instructions: [
+      {
+        path: "src/**/*.js",
+        instructions: {
+          use: "javascript",
+          with: {
+            isTypeScript: false,
+            maxNestingDepth: 3
+          }
+        }
+      }
+    ]
+  }
 ]);
 ```
 
@@ -194,7 +286,7 @@ const configs = defineUsagiConfig([
     language: 'en-US',
     reviews: {
       profile: 'chill',
-    },
+    }
   },
 ]);
 
