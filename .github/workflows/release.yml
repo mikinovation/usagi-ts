@@ -23,7 +23,7 @@ jobs:
         run: bun install --filter '*'
 
       - name: Build
-        run: bun build
+        run: bun run --filter '*' build
 
       - uses: actions/setup-node@v4
         with:

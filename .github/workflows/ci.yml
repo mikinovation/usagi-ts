@@ -24,4 +24,4 @@ jobs:
         run: bun test --coverage
 
       - name: Build project
-        run: bun build
+        run: bun run --filter '*' build
