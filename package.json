@@ -1,40 +1,20 @@
 {
   "name": "usagi-ts",
-  "version": "1.0.1",
-  "description": "TypeScript library for managing CodeRabbit configuration files",
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "bin": {
-    "usagi": "./dist/cli.js"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./presets": {
-      "import": "./dist/presets.js",
-      "types": "./dist/presets.d.ts"
-    }
-  },
+  "private": false,
+  "workspaces": ["packages/*"],
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir ./dist --target node",
-    "build:cli": "bun build ./src/cli.ts --outdir ./dist --target node",
+    "build": "bun run --filter '*' build",
+    "build:core": "bun run --filter '@usagi-ts/core' build",
+    "build:cli": "bun run --filter '@usagi-ts/cli' build",
+    "test": "bun run --filter '*' test",
+    "test:core": "bun --filter @usagi-ts/core test",
+    "test:cli": "bun run --filter @usagi-ts/cli test",
     "generate-types": "bun run scripts/generate-types.ts",
-    "prepublishOnly": "bun run generate-types && bun run build && bun run build:cli",
-    "test": "bun test",
-    "usagi:gen": "bun run usagi"
-  },
-  "dependencies": {
-    "defu": "^6.1.4",
-    "js-yaml": "4.1.0"
+    "usagi": "bun run --filter '@usagi-ts/cli' ./bin/usagi-ts.js",
   },
   "devDependencies": {
-    "@types/js-yaml": "4.0.9",
     "@types/bun": "1.2.8",
     "json-schema-to-typescript": "15.0.4",
-    "typescript": "5.8.3"
+    "typescript": "5.8.2"
   }
 }

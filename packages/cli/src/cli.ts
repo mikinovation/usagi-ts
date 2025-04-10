@@ -1,10 +1,7 @@
 #!/usr/bin/env bun
 import { existsSync, writeFileSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { generateYaml } from './yaml';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { resolve } from 'node:path';
+import { generateYaml } from '@usagi-ts/core';
 
 async function main() {
   try {

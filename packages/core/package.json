@@ -1,0 +1,30 @@
+{
+  "name": "@usagi-ts/core",
+  "version": "1.0.1",
+  "description": "Core functionality for usagi-ts - TypeScript library for managing CodeRabbit configuration",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./presets": {
+      "import": "./dist/presets.js",
+      "types": "./dist/presets.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --target node",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "defu": "^6.1.4",
+    "js-yaml": "4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "4.0.9"
+  }
+}

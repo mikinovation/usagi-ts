@@ -1,0 +1,21 @@
+{
+  "name": "@usagi-ts/cli",
+  "version": "1.0.1",
+  "description": "CLI for managing CodeRabbit configuration files with flat config support",
+  "type": "module",
+  "bin": {
+    "usagi": "./bin/usagi-ts.js"
+  },
+  "main": "./dist/cli.js",
+  "scripts": {
+    "build": "bun build ./src/cli.ts --outdir ./dist --target node",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@usagi-ts/core": "workspace:*"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ]
+}

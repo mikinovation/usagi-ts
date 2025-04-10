@@ -3,8 +3,8 @@ import { resolve } from 'node:path';
 import { compile } from 'json-schema-to-typescript';
 
 const SCHEMA_URL = 'https://storage.googleapis.com/coderabbit_public_assets/schema.v2.json';
-const OUTPUT_PATH = resolve(import.meta.dir, '../src/types.ts');
-const SCHEMA_PATH = resolve(import.meta.dir, '../src/schema.json');
+const OUTPUT_PATH = resolve(import.meta.dir, '../packages/core/src/types.ts');
+const SCHEMA_PATH = resolve(import.meta.dir, '../packages/core/src/schema.json');
 
 async function generateTypes() {
   try {
