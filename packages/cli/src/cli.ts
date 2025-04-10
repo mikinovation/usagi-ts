@@ -1,8 +1,7 @@
 #!/usr/bin/env bun
 import { existsSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { generateYaml } from '@usagi-ts/core';
-import { listAvailablePackages } from '@usagi-ts/core/package-utils';
+import { generateYaml, packageUtils } from '@usagi-ts/core';
 
 /**
  * Main CLI function
@@ -46,7 +45,7 @@ async function main() {
  * Lists all available usagi-ts configuration packages
  */
 function listPackages() {
-  const packages = listAvailablePackages();
+  const packages = packageUtils.listAvailablePackages();
   
   if (packages.length === 0) {
     console.log('No usagi-ts configuration packages found.');
