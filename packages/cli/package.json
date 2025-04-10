@@ -1,6 +1,5 @@
 {
   "name": "@usagi-ts/cli",
-  "version": "1.0.1",
   "description": "CLI for managing CodeRabbit configuration files with flat config support",
   "type": "module",
   "bin": {
