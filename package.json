@@ -13,7 +13,7 @@
     "usagi": "bun run --filter '@usagi-ts/cli' ./bin/usagi-ts.js"
   },
   "devDependencies": {
-    "@types/bun": "1.2.8",
+    "@types/bun": "1.2.9",
     "json-schema-to-typescript": "15.0.4",
     "typescript": "5.8.2"
   }
