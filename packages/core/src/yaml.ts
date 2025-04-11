@@ -1,18 +1,17 @@
 import { dump } from 'js-yaml';
-import { CodeRabbitConfig } from './types';
-import { resolveConfig, UsagiConfigItem } from './define-config';
-import defu from 'defu';
+import { UsagiExtendedConfigItem } from './enhanced-types';
+import { resolveExtendedConfig } from './config-resolver';
 
-export function generateYaml(configs: UsagiConfigItem[], env = process.env) {
-  const resolvedConfigs = resolveConfig(configs, env);
-  
-  const mergedConfig = mergeConfigs(resolvedConfigs);
-  
+/**
+ * Generates YAML configuration from flat-config style config items
+ * @param {UsagiExtendedConfigItem|UsagiExtendedConfigItem[]} configs - Configuration items
+ * @param {Record<string, string>} env - Environment variables
+ * @returns {string} Generated YAML configuration
+ */
+export function generateYaml(
+  configs: UsagiExtendedConfigItem | UsagiExtendedConfigItem[],
+  env = process.env
+): string {
+  const mergedConfig = resolveExtendedConfig(configs, env);
   return dump(mergedConfig);
-}
-
-function mergeConfigs(configs: Partial<CodeRabbitConfig>[]) {
-  return configs.reduce((result, config) => {
-    return defu(result, config);
-  }, {} as CodeRabbitConfig);
 }

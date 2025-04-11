@@ -1,23 +1,13 @@
-import { CodeRabbitConfig } from './types';
-import { validateConfig } from './validate';
+import { UsagiExtendedConfigItem } from './enhanced-types';
 
-export type UsagiConfigItem = 
-  | Partial<CodeRabbitConfig>
-  | ((env: Record<string, string>) => Partial<CodeRabbitConfig>);
-
-export function defineUsagiConfig(configs: UsagiConfigItem[]) {
+/**
+ * Defines a flat-config style configuration for usagi-ts
+ * Supports direct module imports similar to ESLint flat config
+ * @param {UsagiExtendedConfigItem|UsagiExtendedConfigItem[]} configs - Configuration items
+ * @returns {UsagiExtendedConfigItem|UsagiExtendedConfigItem[]} The original configuration items
+ */
+export function defineUsagiConfig(
+  configs: UsagiExtendedConfigItem | UsagiExtendedConfigItem[]
+) {
   return configs;
-}
-
-export function resolveConfig(configs: UsagiConfigItem[], env = process.env) {
-  const resolvedConfigs = configs.map(config => {
-    if (typeof config === 'function') {
-      return config(env);
-    }
-    return config;
-  });
-  
-  resolvedConfigs.forEach(validateConfig);
-  
-  return resolvedConfigs;
 }
