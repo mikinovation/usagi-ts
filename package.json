@@ -2,7 +2,7 @@
   "name": "usagi-ts",
   "version": "1.0.2",
   "private": false,
-  "workspaces": ["packages/*"],
+  "workspaces": ["packages/cli", "packages/core"],
   "scripts": {
     "build": "bun run build:core && bun run build:cli",
     "build:core": "bun run --filter '@usagi-ts/core' build",
