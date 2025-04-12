@@ -7,7 +7,7 @@ import { generateYaml, packageUtils } from '@usagi-ts/core';
  * Main CLI function
  * Handles command parsing and execution
  */
-async function main() {
+export async function runGenerateConfig() {
   const args = process.argv.slice(2);
   const command = args[0];
   

@@ -11,17 +11,12 @@
     },
     "packages/cli": {
       "name": "@usagi-ts/cli",
-      "version": "1.0.1",
-      "bin": {
-        "usagi": "./bin/usagi-ts.js",
-      },
       "dependencies": {
         "@usagi-ts/core": "workspace:*",
       },
     },
     "packages/core": {
       "name": "@usagi-ts/core",
-      "version": "1.0.1",
       "dependencies": {
         "defu": "^6.1.4",
         "js-yaml": "4.1.0",
