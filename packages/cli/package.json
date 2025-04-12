@@ -11,7 +11,7 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@usagi-ts/core": "workspace:*"
+    "@usagi-ts/core": "workspace:../core"
   },
   "files": [
     "dist",
