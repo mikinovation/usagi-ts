@@ -1,4 +1,5 @@
-import { defineUsagiConfig } from 'usagi-ts';
+// TODO: replace @usagi-ts/core with usagi-ts
+import { defineUsagiConfig } from '@usagi-ts/core';
 
 export default defineUsagiConfig([
   // Base configuration

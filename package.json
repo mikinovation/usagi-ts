@@ -3,15 +3,27 @@
   "version": "1.0.2",
   "private": false,
   "workspaces": ["packages/*"],
+  "bin": {
+    "usagi-ts": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "bun run build:core && bun run build:cli",
-    "build:core": "bun run --filter '@usagi-ts/core' build",
-    "build:cli": "bun run --filter '@usagi-ts/cli' build",
+    "build:core": "bun build ./src/index.ts --outdir ./dist --target node",
+    "build:cli": "bun build ./src/cli.ts --outdir ./dist --target node",
     "test": "bun run --filter '*' test",
     "test:core": "bun --filter '@usagi-ts/core' test",
     "test:cli": "bun run --filter '@usagi-ts/cli' test",
     "generate-types": "bun run scripts/generate-types.ts",
-    "usagi": "bun run --filter '@usagi-ts/cli' ./bin/usagi-ts.js"
+    "usagi": "link:usagi-ts"
   },
   "devDependencies": {
     "@types/bun": "1.2.9",
