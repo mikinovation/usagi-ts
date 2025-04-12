@@ -7,7 +7,7 @@
   },
   "main": "./dist/cli.js",
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir ../../dist --target node",
+    "build": "bun build ./src/index.ts --outdir ./dist --target node",
     "test": "bun test"
   },
   "files": [
