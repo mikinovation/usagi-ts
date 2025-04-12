@@ -25,6 +25,10 @@
     "generate-types": "bun run scripts/generate-types.ts",
     "usagi": "link:usagi-ts"
   },
+  "dependencies": {
+    "@usagi-ts/core": "workspace:*",
+    "@usagi-ts/cli": "workspace:*"
+  },
   "devDependencies": {
     "@types/bun": "1.2.9",
     "json-schema-to-typescript": "15.0.4",
