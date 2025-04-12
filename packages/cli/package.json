@@ -10,9 +10,6 @@
     "build": "bun build ./src/index.ts --outdir ../../dist --target node",
     "test": "bun test"
   },
-  "dependencies": {
-    "@usagi-ts/core": "workspace:../core"
-  },
   "files": [
     "dist",
     "bin"
