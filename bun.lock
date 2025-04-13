@@ -3,6 +3,9 @@
   "workspaces": {
     "": {
       "name": "usagi-ts",
+      "dependencies": {
+        "@usagi-ts/core": "workspace:*",
+      },
       "devDependencies": {
         "@types/bun": "1.2.9",
         "json-schema-to-typescript": "15.0.4",
@@ -11,14 +14,14 @@
     },
     "packages/cli": {
       "name": "@usagi-ts/cli",
-      "dependencies": {
-        "@usagi-ts/core": "workspace:*",
+      "bin": {
+        "usagi": "./bin/usagi-ts.js",
       },
     },
     "packages/core": {
       "name": "@usagi-ts/core",
       "dependencies": {
-        "defu": "^6.1.4",
+        "defu": "6.1.4",
         "js-yaml": "4.1.0",
       },
       "devDependencies": {

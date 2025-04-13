@@ -16,11 +16,11 @@
     }
   },
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir ./dist --target node",
+    "build": "tsc --project tsconfig.json && bun build ./src/index.ts --outdir ./dist --target node",
     "test": "bun test"
   },
   "dependencies": {
-    "defu": "^6.1.4",
+    "defu": "6.1.4",
     "js-yaml": "4.1.0"
   },
   "devDependencies": {

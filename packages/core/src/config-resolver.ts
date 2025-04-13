@@ -29,7 +29,7 @@ function flattenConfigs(
   if (Array.isArray(configItem)) {
     return configItem.flatMap(item => flattenConfigs(item, env));
   } else if (typeof configItem === 'function') {
-    const resolvedConfig = configItem(env);
+    const resolvedConfig = configItem(env as any);
     
     if (Array.isArray(resolvedConfig)) {
       return flattenConfigs(resolvedConfig, env);
@@ -90,7 +90,7 @@ function processInstructionSets(config: UsagiExtendedConfig): Partial<CodeRabbit
             instructions: processedInstructions
           });
         }
-
+      }
     }
     
     standardConfig.reviews.path_instructions = pathInstructions;
@@ -147,4 +147,4 @@ function processTemplate(template: string, params: Record<string, string>): stri
   });
   
   return result;
-}}
+}
