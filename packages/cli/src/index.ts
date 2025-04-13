@@ -57,5 +57,3 @@ function listPackages() {
     console.log(`- ${pkg}`);
   });
 }
-
-main();

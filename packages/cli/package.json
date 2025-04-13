@@ -6,8 +6,9 @@
     "usagi": "./bin/usagi-ts.js"
   },
   "main": "./dist/cli.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir ./dist --target node",
+    "build": "tsc --project tsconfig.json && bun build ./src/index.ts --outdir ./dist --target node",
     "test": "bun test"
   },
   "files": [

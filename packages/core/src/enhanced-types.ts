@@ -48,6 +48,9 @@ export interface RuleCollection {
  * Extended configuration that builds on the standard CodeRabbit config
  */
 export interface UsagiExtendedConfig extends Partial<CodeRabbitConfig> {
+  /** Version number for the configuration */
+  version?: number;
+  
   /** Reusable instruction sets that can be referenced by path instructions */
   instruction_sets?: {
     [name: string]: InstructionSet;
