@@ -80,6 +80,8 @@ export interface CodeRabbitConfig {
     | 'zh'
     | 'crh-UA'
     | 'crh'
+    | 'cs-CZ'
+    | 'cs'
     | 'nb'
     | 'no'
     | 'nl-NL'
@@ -89,7 +91,9 @@ export interface CodeRabbitConfig {
     | 'fa-IR'
     | 'sv-SE'
     | 'de-LU'
-    | 'fr-FR';
+    | 'fr-FR'
+    | 'bg-BG'
+    | 'bg';
   /**
    * Set the tone of reviews and chat. Example: 'You must use talk like Mr. T. I pity the fool who doesn't!'
    */
@@ -578,6 +582,15 @@ export interface CodeRabbitConfig {
          */
         enabled?: boolean;
       };
+      /**
+       * Configuration for Shopify Theme Check to ensure theme quality and best practices
+       */
+      shopifyThemeCheck?: {
+        /**
+         * Enable Shopify Theme Check | A linter for Shopify themes that helps you follow Shopify theme & Liquid best practices | cli 3.77.1 | theme 3.58.2
+         */
+        enabled?: boolean;
+      };
     };
   };
   chat?: {
@@ -738,6 +751,8 @@ export interface CodeRabbitConfig {
         | 'zh'
         | 'crh-UA'
         | 'crh'
+        | 'cs-CZ'
+        | 'cs'
         | 'nb'
         | 'no'
         | 'nl-NL'
@@ -747,7 +762,9 @@ export interface CodeRabbitConfig {
         | 'fa-IR'
         | 'sv-SE'
         | 'de-LU'
-        | 'fr-FR';
+        | 'fr-FR'
+        | 'bg-BG'
+        | 'bg';
     };
   };
 }
