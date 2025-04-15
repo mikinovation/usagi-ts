@@ -11,6 +11,9 @@
     "build": "tsc --project tsconfig.json && bun build ./src/cli.ts --outdir ../../dist --target node",
     "test": "bun test"
   },
+  "dependencies": {
+    "@usagi-ts/core": "workspace:*"
+  }, 
   "files": [
     "dist",
     "bin"

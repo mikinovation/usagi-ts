@@ -17,6 +17,9 @@
       "bin": {
         "usagi": "./bin/usagi-ts.js",
       },
+      "dependencies": {
+        "@usagi-ts/core": "workspace:*",
+      },
     },
     "packages/core": {
       "name": "@usagi-ts/core",
