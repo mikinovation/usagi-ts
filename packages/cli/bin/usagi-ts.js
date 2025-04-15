@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { runGenerateConfig } from '../dist/index.js';
+import { runGenerateConfig } from '../../../dist/cli.js';
 
 runGenerateConfig().catch(err => {
   console.error(err);
