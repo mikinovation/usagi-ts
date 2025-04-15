@@ -12,7 +12,9 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@usagi-ts/core": "workspace:*"
+    "@usagi-ts/core": "workspace:*",
+    "defu": "6.1.4",
+    "js-yaml": "4.1.0"
   }, 
   "files": [
     "dist",
