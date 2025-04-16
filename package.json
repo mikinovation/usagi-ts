@@ -4,7 +4,7 @@
   "private": false,
   "workspaces": ["packages/*"],
   "scripts": {
-    "build": "tsc --project tsconfig.json && bun build ./src/index.ts --outdir ./dist --target node",
+    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target node",
     "build:core": "bun run --filter '@usagi-ts/core' build",
     "build:cli": "bun run --filter '@usagi-ts/cli' build",
     "test": "bun run --filter '*' test",
