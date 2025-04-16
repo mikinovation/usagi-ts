@@ -4,6 +4,7 @@
     "": {
       "name": "usagi-ts",
       "dependencies": {
+        "@usagi-ts/cli": "workspace:*",
         "@usagi-ts/core": "workspace:*",
       },
       "devDependencies": {
