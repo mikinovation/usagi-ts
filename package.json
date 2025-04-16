@@ -1,20 +1,17 @@
 {
   "name": "usagi-ts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "workspaces": ["packages/*"],
   "scripts": {
-    "build": "bun run build:core && bun run build:cli",
+    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target node",
     "build:core": "bun run --filter '@usagi-ts/core' build",
     "build:cli": "bun run --filter '@usagi-ts/cli' build",
     "test": "bun run --filter '*' test",
     "test:core": "bun --filter '@usagi-ts/core' test",
     "test:cli": "bun run --filter '@usagi-ts/cli' test",
     "generate-types": "bun run scripts/generate-types.ts",
-    "usagi": "bun run ./packages/cli/bin/usagi-ts.js"
-  },
-  "dependencies": {
-    "@usagi-ts/core": "workspace:*"
+    "usagi": "bun run ./bin/usagi-ts.js"
   },
   "devDependencies": {
     "@types/bun": "1.2.9",

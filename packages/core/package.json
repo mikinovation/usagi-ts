@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json && bun build ./src/index.ts --outdir ./dist --target node",
+    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target node",
     "test": "bun test"
   },
   "dependencies": {

@@ -53,7 +53,7 @@ function listPackages() {
   }
   
   console.log('Available configuration packages:');
-  packages.forEach(pkg => {
+  packages.forEach((pkg: string) => {
     console.log(`- ${pkg}`);
   });
 }

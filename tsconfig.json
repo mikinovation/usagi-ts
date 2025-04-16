@@ -8,8 +8,12 @@
     "skipLibCheck": true,
     "declaration": true,
     "outDir": "./dist",
-    "rootDir": "./src",
-    "resolveJsonModule": true
+    "rootDir": ".",
+    "resolveJsonModule": true,
+    "paths": {
+      "@usagi-ts/cli": ["./packages/cli/src"],
+      "@usagi-ts/core": ["./packages/core/src"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
