@@ -11,6 +11,7 @@
     "rootDir": ".",
     "resolveJsonModule": true,
     "paths": {
+      "@usagi-ts/cli": ["./packages/cli/src"],
       "@usagi-ts/core": ["./packages/core/src"]
     }
   },
