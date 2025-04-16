@@ -3,10 +3,6 @@
   "workspaces": {
     "": {
       "name": "usagi-ts",
-      "dependencies": {
-        "@usagi-ts/cli": "workspace:*",
-        "@usagi-ts/core": "workspace:*",
-      },
       "devDependencies": {
         "@types/bun": "1.2.9",
         "json-schema-to-typescript": "15.0.4",
