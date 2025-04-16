@@ -8,13 +8,11 @@
   "main": "./dist/cli.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc --project tsconfig.json && bun build ./src/cli.ts --outdir ../../dist --target node",
+    "build": "tsc && bun build ./src/cli.ts --outdir ./dist --target node",
     "test": "bun test"
   },
   "dependencies": {
-    "@usagi-ts/core": "workspace:*",
-    "defu": "6.1.4",
-    "js-yaml": "4.1.0"
+    "@usagi-ts/core": "workspace:*"
   }, 
   "files": [
     "dist",
