@@ -1,10 +1,23 @@
 {
   "name": "usagi-ts",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": false,
   "workspaces": ["packages/*"],
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.mts",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
   "scripts": {
-    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target node",
+    "build": "tsup ./src/index.ts --format esm --dts --sourcemap --clean",
     "build:core": "bun run --filter '@usagi-ts/core' build",
     "build:cli": "bun run --filter '@usagi-ts/cli' build",
     "test": "bun run --filter '*' test",
@@ -16,6 +29,7 @@
   "devDependencies": {
     "@types/bun": "1.2.10",
     "json-schema-to-typescript": "15.0.4",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "tsup": "8.4.0"
   }
 }
