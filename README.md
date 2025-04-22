@@ -141,7 +141,7 @@ const configWithParams = (params: { early_access: boolean }) => ({
 
 export default defineUsagiConfig([
   baseConfig,
-  envConfig({
+  configWithParams({
     early_access: true,
   }),
 ]);
