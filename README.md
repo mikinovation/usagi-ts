@@ -32,7 +32,6 @@ Create a `usagi.config.ts` file in your project root:
 import { defineUsagiConfig } from 'usagi-ts';
 
 export default defineUsagiConfig([
-  // Base configuration
   {
     language: 'en-US',
     reviews: {
@@ -42,10 +41,6 @@ export default defineUsagiConfig([
       },
     },
   },
-  // Environment-specific configuration
-  (env) => ({
-    early_access: env.NODE_ENV === 'development',
-  }),
 ]);
 ```
 
@@ -117,12 +112,13 @@ const baseConfig: UsagiExtendedConfig = {
   
   // Shared instruction sets
   instruction_sets: {
-    javascript: {
-      description: 'Standard JavaScript review instructions',
-      instructions: `
+    typescript: {
+      description: 'Standard Typescript review instructions',
+      instructions: (params: { constantsStyle: string }): string => `
         Review JavaScript code against these standards:
-        1. Follow Google Style Guide
-        2. {{customRules}}
+        1. Use the "function" keyword for functions. "Arrow functions" are prohibited.
+        2. When defining types in TypeScript, utilize "type" aliases instead of "interface".
+        3. Constants should be named using ${params.constantsStyle || 'UpperCamel'}.
       `
     }
   }
@@ -139,18 +135,15 @@ You can use functions to create environment-aware configurations:
 import { defineUsagiConfig } from 'usagi-ts';
 import baseConfig from './configs/base-config';
 
-/**
- * Environment-aware configuration
- * @param {Record<string, string>} env - Environment variables
- * @returns {UsagiExtendedConfig} Configuration based on environment
- */
-const envConfig = (env: Record<string, string>) => ({
-  early_access: env.NODE_ENV === 'development',
+const configWithParams = (params: { early_access: boolean }) => ({
+  early_access: params.early_access,
 });
 
 export default defineUsagiConfig([
   baseConfig,
-  envConfig, // This will be evaluated with the current environment
+  envConfig({
+    early_access: true,
+  }),
 ]);
 ```
 
@@ -200,68 +193,23 @@ usagi-ts supports powerful function-based review instructions that allow you to 
 ```typescript
 import { defineUsagiConfig } from 'usagi-ts';
 import baseConfig from './configs/base-config';
-import { createJavaScriptInstructions } from './configs/instruction-functions';
 
 export default defineUsagiConfig([
   baseConfig,
   {
-    instruction_sets: {
-      // Add function-based instruction
-      javascript: {
-        description: 'JavaScript review instructions',
-        instructions: createJavaScriptInstructions
-      }
-    },
-    enhanced_path_instructions: [
+    instructions: [
       {
-        path: "src/**/*.js",
+        path: ["src/**/*.ts", "src/**/*.tsx"],
         instructions: {
-          use: "javascript",
+          use: "typescript",
           with: {
-            isTypeScript: false,
-            maxNestingDepth: 3
+            constantsStyle: "UPPER_SNAKE_CASE"
           }
         }
       }
     ]
   }
 ]);
-```
-
-## Available Presets
-
-### Basic
-
-```typescript
-{
-  version: 2,
-  reviews: {
-    auto_review: {
-      enabled: true,
-    },
-  },
-}
-```
-
-### Strict
-
-```typescript
-{
-  version: 2,
-  reviews: {
-    auto_review: {
-      enabled: true,
-      approve_threshold: 90,
-    },
-    rules: [
-      {
-        name: "Require tests",
-        pattern: "**/*.test.{js,ts}",
-        condition: "required",
-      },
-    ],
-  },
-}
 ```
 
 ## CLI Commands
