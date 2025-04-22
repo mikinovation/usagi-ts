@@ -765,6 +765,19 @@ export interface CodeRabbitConfig {
         | 'fr-FR'
         | 'bg-BG'
         | 'bg';
+      /**
+       * Path Instructions | Provide additional guidelines for docstring generation based on file paths.
+       */
+      path_instructions?: {
+        /**
+         * File path glob pattern. Example: ** /*.js
+         */
+        path: string;
+        /**
+         * Provides additional guidelines for docstring generation based on file paths.
+         */
+        instructions: string;
+      }[];
     };
   };
 }
