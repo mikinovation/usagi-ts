@@ -107,10 +107,6 @@ export interface CodeRabbitConfig {
    */
   enable_free_tier?: boolean;
   /**
-   * Automatically resolve threads when code changes address the feedback. When disabled, metrics are still tracked but threads won't be marked as resolved.
-   */
-  auto_resolve_threads?: boolean;
-  /**
    * Settings related to reviews.
    */
   reviews?: {
@@ -232,6 +228,10 @@ export interface CodeRabbitConfig {
      * Abort the in-progress review if the pull request is closed or merged.
      */
     abort_on_close?: boolean;
+    /**
+     * Disable caching of code and dependencies. This will force CodeRabbit to download the code and dependencies fresh from the repository each time.
+     */
+    disable_cache?: boolean;
     auto_review?: {
       /**
        * Automatic Review | Automatic code review
@@ -598,10 +598,6 @@ export interface CodeRabbitConfig {
      * Enable the bot to reply automatically without requiring the user to tag it.
      */
     auto_reply?: boolean;
-    /**
-     * Enable Issue creation by CodeRabbit from PR comments.
-     */
-    create_issues?: boolean;
     integrations?: {
       jira?: {
         /**
@@ -619,7 +615,7 @@ export interface CodeRabbitConfig {
   };
   knowledge_base?: {
     /**
-     * Opt out | Opt out of all knowledge base features that require data retention.
+     * Opt Out | Disable all knowledge base features that require data retention. If you opt out after opting in, all of your existing knowledge base data will be removed from the system.
      */
     opt_out?: boolean;
     web_search?: {
@@ -780,4 +776,5 @@ export interface CodeRabbitConfig {
       }[];
     };
   };
+  [k: string]: unknown;
 }
