@@ -27,7 +27,7 @@
     "usagi": "bun run ./bin/usagi-ts.js"
   },
   "devDependencies": {
-    "@types/bun": "1.2.12",
+    "@types/bun": "1.2.13",
     "json-schema-to-typescript": "15.0.4",
     "typescript": "5.8.3",
     "tsup": "8.4.0"
