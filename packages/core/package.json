@@ -20,7 +20,7 @@
     "test": "bun test"
   },
   "dependencies": {
-    "defu": "6.1.4",
+    "defu": "6.1.7",
     "js-yaml": "4.1.0"
   },
   "devDependencies": {
