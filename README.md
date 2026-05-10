@@ -245,3 +245,4 @@ console.log(yaml);
 ## License
 
 [MIT License](LICENSE) © 2025 Mikihiro Saito
+
